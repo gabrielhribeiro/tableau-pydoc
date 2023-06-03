@@ -23,6 +23,7 @@ This repository contains a Python script that automates the process of generatin
 4. Update the script with your Tableau Server URL and authentication token.
 5. Customize the script to match your specific reporting requirements.
 6. Run the script to generate a report based on the provided date range and target.
+7. You should have a pre defined word_template.docx to be used. 
 
 ## Output
 
