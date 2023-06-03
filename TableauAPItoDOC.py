@@ -58,7 +58,7 @@ BVC = getvID('Target1')
 #connection
 with server.auth.sign_in(tableau_auth):
     
-    ###TABLES BLOCKED
+   
     MonitorBDA = server.views.get_by_id(BDA)
     csv_MonitorBDA = TSC.CSVRequestOptions(maxage=5)
     csv_MonitorBDA.vf('StartDate', StartDate)
@@ -103,13 +103,11 @@ with server.auth.sign_in(tableau_auth):
     csvs_MonitorBVC = b''.join(MonitorBVC.csv)
     dfMonitorBVC = pd.read_csv(io.StringIO(csvs_MonitorBVC.decode('utf-8')))
 
-    #############MonitoredBlockBrand
     MonitorBlocked = server.views.get_by_id(MonitoredBlockBrand)
     csv_MBlocked = TSC.CSVRequestOptions(maxage=5)
     csv_MBlocked.vf('StartDate', StartDate)
     csv_MBlocked.vf('EndDate', EndDate)
 
-    # Populate the view with CSV data
     server.views.populate_csv(MonitorBlocked, csv_MBlocked)
     
     # Retrieve the CSV data for the view
@@ -117,7 +115,6 @@ with server.auth.sign_in(tableau_auth):
     dfMonitorBlocked = pd.read_csv(io.StringIO(csv_MonitorBlocked.decode('utf-8')))
     valMonitorBlocked = dfMonitorBlocked['column1'][0]
     
-    ###########idHelper
     view_item_helper = server.views.get_by_id(idHelper)
     # Set the CSV request options
     csv_req_option = TSC.CSVRequestOptions(maxage=5)
@@ -142,17 +139,10 @@ with server.auth.sign_in(tableau_auth):
  
     #Total Events - {{Affectedsessions}} 
     last_valueReApi = dfReApi['Measure Values'].iloc[-1]
-    #print(last_valueReApi)
-    #Category - {{Category}}
     CategoryReApi = dfReApi['Category'].iloc[2]
-    #print(CategoryReApi)
-    #Form Data Access - {{FormDataAccessed}}
     FormReApi = dfReApi['column2'].iloc[2]
-    #Network Destination - {{NetworkURI}}
     DestReApi = dfReApi['column2'].iloc[2]
-    #Vendor Name - {{VendorName}}
     VendorReApi = dfReApi['column24'].iloc[2]
-    #Sensitive Data - {{Sensitivedata}}
     SensitiveDataReApi = dfReApi['column23'].iloc[2]
     
     #Table
@@ -267,8 +257,6 @@ def substitute_values_in_docx(template_path, output_path, substitutions, substit
         cells[0].text = str(row['Column12'])
         cells[1].text = str(row['Column12'])
                             
-            
-
     # Save the modified document
     doc.save(output_path)
 
